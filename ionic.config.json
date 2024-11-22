@@ -1,0 +1,7 @@
+{
+  "name": "gamer-trials",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
