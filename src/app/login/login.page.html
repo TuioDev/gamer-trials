@@ -1,13 +1,28 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>login</ion-title>
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title size="large" class="ion-text-center">GamerTrials</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">login</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="login-container">
+    <h2>Signup</h2>
+
+    <ion-item>
+      <ion-label position="stacked">E-mail</ion-label>
+      <ion-input [(ngModel)]="email" type="email" placeholder="Enter your email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input [(ngModel)]="password" type="password" placeholder="Enter your password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nickname</ion-label>
+      <ion-input [(ngModel)]="nickname" type="text" placeholder="Choose a nickname"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" color="primary" (click)="onConfirm()">Confirm</ion-button>
+  </div>
 </ion-content>

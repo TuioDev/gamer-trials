@@ -1,2 +1,8 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+:root {
+  --ion-color-danger: #f30b32; /* Personaliza a cor "danger" */
+  --ion-color-danger-contrast: #ffffff; /* Texto branco para contraste */
+  --ion-color-danger-shade: #e60000;
+  --ion-color-danger-tint: #ff3333;
+}

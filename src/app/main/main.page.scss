@@ -1,6 +1,6 @@
 ion-tab-bar {
   --background: var(--ion-color-light);
-  --color-selected: var(--ion-color-primary);
+  --color-selected: var(--ion-color-danger);
   --color: var(--ion-color-medium);
-  border-bottom: 1px solid var(--ion-color-medium);
+  border-bottom: 2px solid var(--ion-color-medium);
 }
