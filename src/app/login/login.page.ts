@@ -12,9 +12,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   imports: [IonInput, IonButton, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class LoginPage {
-  email: string = 'teste@teste.com';
-  password: string = 'TestandoSenhaFraca';
-  nickname: string = 'Testando API';
+  email: string = '';
+  password: string = '';
+  nickname: string = '';
 
   private http = inject(HttpClient);
 
