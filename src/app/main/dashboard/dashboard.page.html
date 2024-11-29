@@ -1,9 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Dashboard</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title id="title">{{ tournamentName }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content [fullscreen]="true">
+  <swiper-container [modules]="swiperModules" [options]="slideOpts" class="game-carousel">
+    <swiper-slide *ngFor="let game of games">
+      <div class="game-card">
+        <img [src]="game.image" alt="Game Image" class="game-image" />
+        <ion-button expand="block" (click)="playGame(game.id)">
+          Play {{ game.name }}
+        </ion-button>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title id="title">Leaderboards</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
 </ion-content>

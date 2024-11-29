@@ -1,6 +1,28 @@
 ion-tab-bar {
-  --background: var(--ion-color-light);
-  --color-selected: var(--ion-color-danger);
-  --color: var(--ion-color-medium);
+  --color-selected: var(--ion-color-secondary);
+  --background: var(--ion-color-secondary);
   border-bottom: 2px solid var(--ion-color-medium);
+  border-top: 1px solid #ffffff;
+}
+
+ion-tab-button {
+  --color: white;
+  --background: transparent;
+  --ripple-color: white; /* Cor do efeito de clique */
+  border: 2px solid white; /* Borda branca */
+  border-radius: 15px; /* Cantos arredondados */
+  margin: 5px; /* Espaço entre os botões */
+  width: 100px; /* Largura fixa para manter o formato */
+  height: 25px; /* Altura ajustada */
+  display: flex; /* Centraliza conteúdo */
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-style: italic;
+  transition: all 0.3s ease;
+}
+
+ion-tab-button.tab-selected {
+  --background: white; /* Fundo branco */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Efeito de destaque */
 }

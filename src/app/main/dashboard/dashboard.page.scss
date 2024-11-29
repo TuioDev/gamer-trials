@@ -1,0 +1,54 @@
+#title {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--ion-color-primary);
+  margin: 10px 0;
+}
+
+.game-carousel {
+  margin-top: 20px;
+  height: 300px;
+  display: flex;
+  flex-direction: row; /* Define a orientação horizontal */
+  align-items: center;
+  justify-content: center;
+  height: auto; /* Adapta à altura dos conteúdos */
+  overflow: hidden; /* Evita estouros visuais */
+}
+
+swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto; /* Ajusta a largura ao conteúdo */
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  width: 200px; /* Largura fixa para cada card */
+  box-sizing: border-box;
+}
+
+.game-image {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.game-image:hover {
+  transform: scale(1.1);
+}
+
+ion-button {
+  --background: var(--ion-color-tertiary);
+  --border-radius: 10px;
+  margin-top: 10px;
+}
