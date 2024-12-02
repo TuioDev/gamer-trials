@@ -1,20 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { LeaderboardComponent } from 'src/app/leaderboard/leaderboard.component';
 
 @Component({
   selector: 'app-leaderboards',
+  standalone: true,
+  imports: [CommonModule, IonicModule, LeaderboardComponent],
   templateUrl: './leaderboards.page.html',
   styleUrls: ['./leaderboards.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
-export class LeaderboardsPage implements OnInit {
+export class LeaderboardsPage {
+  game = {
+    image: 'https://via.placeholder.com/150',
+    title: 'Super Game',
+    studio: 'Game Studio',
+  };
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  leaderboard = [
+    { position: 1, nickname: 'PlayerOne', score: 1500 },
+    { position: 2, nickname: 'PlayerTwo', score: 1400 },
+    { position: 3, nickname: 'PlayerThree', score: 1300 },
+    { position: 4, nickname: 'PlayerFour', score: 1200 },
+  ];
 }

@@ -5,7 +5,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <swiper-container [modules]="swiperModules" [options]="slideOpts" class="game-carousel">
+  <swiper
+    slidesPerView="1.5"
+    spaceBetween="20"
+    centeredSlides="true"
+    loop="true"
+    freeMode="true"
+    class="game-carousel">
     <swiper-slide *ngFor="let game of games">
       <div class="game-card">
         <img [src]="game.image" alt="Game Image" class="game-image" />
@@ -14,12 +20,14 @@
         </ion-button>
       </div>
     </swiper-slide>
-  </swiper-container>
+  </swiper>
 
   <ion-header>
     <ion-toolbar>
       <ion-title id="title">Leaderboards</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <app-leaderboard [game]="game" [leaderboard]="leaderboard"></app-leaderboard>
 
 </ion-content>

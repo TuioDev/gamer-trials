@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonList, IonItem, IonText, IonListHeader, IonRange, IonToggle } from '@ionic/angular/standalone';
@@ -10,11 +10,9 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonTabs, IonTabBar, IonTab
   standalone: true,
   imports: [IonToggle, IonRange, IonListHeader, IonText, IonItem, IonList, IonLabel, IonIcon, IonTabButton, IonTabBar, IonTabs, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
-export class MainPage implements OnInit {
+export class MainPage {
 
   constructor() { }
 
-  ngOnInit() {
-  }
 
 }

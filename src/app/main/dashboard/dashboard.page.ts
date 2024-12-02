@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonicSlides, IonHeader, IonToolbar, IonTitle, IonButton } from '@ionic/angular/standalone';
+import { LeaderboardComponent } from 'src/app/leaderboard/leaderboard.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
@@ -10,8 +11,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonContent, IonHeader, IonToolbar, IonTitle, IonButton,],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [CommonModule, FormsModule, IonContent, IonHeader, IonToolbar, IonTitle, IonButton, LeaderboardComponent],
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class DashboardPage {
   swiperModules = [IonicSlides];
@@ -41,4 +42,17 @@ export class DashboardPage {
     console.log(`Playing game with ID: ${gameId}`);
     // Implementar lógica para iniciar o jogo
   }
+
+  game = {
+    image: 'assets/images/game1.jpg',
+    title: 'Elden Ring',
+    studio: 'FROMSOFTWARE',
+  };
+
+  leaderboard = [
+    { position: 1, nickname: 'Player 1', score: 2000 },
+    { position: 2, nickname: 'Player 2', score: 1800 },
+    { position: 3, nickname: 'Player 3', score: 1600 },
+    { position: 4, nickname: 'Player 4', score: 1400 },
+  ];
 }
