@@ -2,7 +2,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonicSlides, IonHeader, IonToolbar, IonTitle, IonButton } from '@ionic/angular/standalone';
-import { LeaderboardComponent } from 'src/app/leaderboard/leaderboard.component';
+import { LeaderboardComponent } from 'src/app/components/leaderboard/leaderboard.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
@@ -28,13 +28,13 @@ export class DashboardPage {
 
   // Opções do Swiper
   slideOpts = {
-    direction: 'horizontal', // Direção de deslizamento horizontal
-    slidesPerView: 1.5, // Mostrar 1.2 slides
-    spaceBetween: 20,   // Espaço entre slides
-    centeredSlides: true, // Centralizar os slides no carrossel
-    freeMode: true,     // Permitir deslizar livremente
+    direction: 'horizontal',
+    slidesPerView: 1.5,
+    spaceBetween: 20,
+    centeredSlides: true,
+    freeMode: true,
     // pagination: {
-    //   clickable: true, // Páginas clicáveis
+    //   clickable: true,
     // },
   };
 

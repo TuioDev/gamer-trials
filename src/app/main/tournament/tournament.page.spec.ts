@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TournamentPage } from './tournament.page';
+import { GameListComponent } from 'src/app/components/game-list/game-list.component';
 
 describe('TournamentPage', () => {
   let component: TournamentPage;

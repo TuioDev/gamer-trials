@@ -1,0 +1,9 @@
+<div [ngClass]="layout === 'horizontal' ? 'horizontal-layout' : 'grid-layout'">
+  <ion-card *ngFor="let game of games">
+    <img [src]="game.image" alt="{{ game.title }}" />
+    <ion-card-header>
+      <ion-card-title>{{ game.title }}</ion-card-title>
+      <ion-card-subtitle>{{ game.studio }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+</div>

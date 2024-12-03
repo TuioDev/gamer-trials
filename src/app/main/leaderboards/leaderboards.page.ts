@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { LeaderboardComponent } from 'src/app/leaderboard/leaderboard.component';
+import { LeaderboardComponent } from 'src/app/components/leaderboard/leaderboard.component';
 
 @Component({
   selector: 'app-leaderboards',

@@ -1,13 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Tournament</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-content>
+  <ion-header>
     <ion-toolbar>
       <ion-title size="large">tournament</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <app-game-list [games]="games" layout="grid"></app-game-list>
+
 </ion-content>
