@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
   {
@@ -7,25 +8,38 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'main',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
     path: 'login',
-    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./login/login.page').then(m => m.LoginPage)
   },
   {
-    path: 'set-nickname',
-    loadComponent: () => import('./set-nickname/set-nickname.page').then( m => m.SetNicknamePage)
+    path: 'signup',
+    loadComponent: () => import('./signup/signup.page').then(m => m.SignupPage)
   },
   {
     path: 'main',
     loadComponent: () => import('./main/main.page').then(m => m.MainPage),
+    canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', loadComponent: () => import('./main/dashboard/dashboard.page').then(m => m.DashboardPage) },
-      { path: 'tournament', loadComponent: () => import('./main/tournament/tournament.page').then(m => m.TournamentPage) },
-      { path: 'leaderboards', loadComponent: () => import('./main/leaderboards/leaderboards.page').then(m => m.LeaderboardsPage) },
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./main/dashboard/dashboard.page').then(m => m.DashboardPage),
+        canActivate: [authGuard]
+      },
+      {
+        path: 'tournament',
+        loadComponent: () => import('./main/tournament/tournament.page').then(m => m.TournamentPage),
+        canActivate: [authGuard]
+      },
+      {
+        path: 'leaderboards',
+        loadComponent: () => import('./main/leaderboards/leaderboards.page').then(m => m.LeaderboardsPage),
+        canActivate: [authGuard]
+      },
     ],
   },
 ];

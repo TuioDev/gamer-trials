@@ -5,22 +5,10 @@
     </ion-toolbar>
   </ion-header>
 
-  <swiper
-    slidesPerView="1.5"
-    spaceBetween="20"
-    centeredSlides="true"
-    loop="true"
-    freeMode="true"
-    class="game-carousel">
-    <swiper-slide *ngFor="let game of games">
-      <div class="game-card">
-        <img [src]="game.image" alt="Game Image" class="game-image" />
-        <ion-button expand="block" (click)="playGame(game.id)">
-          Play {{ game.name }}
-        </ion-button>
-      </div>
-    </swiper-slide>
-  </swiper>
+  <app-game-list
+    [games]="games"
+    [layout]="isDesktop ? 'grid' : 'horizontal'">
+  </app-game-list>
 
   <ion-header>
     <ion-toolbar>
@@ -29,5 +17,4 @@
   </ion-header>
 
   <app-leaderboard [game]="game" [leaderboard]="leaderboard"></app-leaderboard>
-
 </ion-content>

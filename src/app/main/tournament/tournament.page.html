@@ -1,10 +1,23 @@
 <ion-content>
   <ion-header>
     <ion-toolbar>
-      <ion-title size="large">tournament</ion-title>
+      <ion-title id="title">Active Tournaments</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-game-list [games]="games" layout="grid"></app-game-list>
+  <div *ngFor="let tournament of activeTournaments">
+    <h2>{{ tournament.name }}</h2>
+    <img [src]="tournament.logo_url" alt="{{ tournament.name }}" />
+    <p>Start Date: {{ tournament.start_date | date }}</p>
+    <p>End Date: {{ tournament.end_date | date }}</p>
+
+    <app-game-list [games]="tournament.games" layout="grid"></app-game-list>
+  </div>
+
+  <ng-template #noData>
+    <ion-text color="medium">
+      <p>No active tournaments found.</p>
+    </ion-text>
+  </ng-template>
 
 </ion-content>

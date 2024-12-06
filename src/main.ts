@@ -9,6 +9,8 @@ import { AppComponent } from './app/app.component';
 import { addIcons } from 'ionicons';
 import * as allIcons from 'ionicons/icons'; // TODO: Only get the icons that we need
 
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 addIcons(allIcons);
 
 bootstrapApplication(AppComponent, {

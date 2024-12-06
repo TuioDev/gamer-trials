@@ -1,54 +1,57 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonLabel, IonItem, IonButton, IonInput } from '@ionic/angular/standalone';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonLabel, IonItem, IonButton, IonInput, IonIcon } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonInput, IonButton, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonInput, IonButton, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, CommonModule, FormsModule]
 })
 export class LoginPage {
-  email: string = 'teste@teste.com';
-  password: string = 'TestandoSenhaFraca';
-  nickname: string = 'Testando API';
+  email: string = '';
+  password: string = '';
+  showPassword: boolean = false;
 
-  private http = inject(HttpClient);
+  private router = inject(Router);
+  private apiService = inject(ApiService);
+  private authService = inject(AuthService);
 
-  private apiUrl = 'https://trials.monticellos.org/api/signup/';
+  constructor() {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/main']);
+    }
+  }
 
-  onConfirm() {
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-    console.log('Nickname:', this.nickname);
-
-    // Lógica para integração com a API
-    if (this.email && this.password && this.nickname) {
-      // Dados para enviar à API
-      const body = {
-        email: this.email,
-        password: this.password,
-        nickname: this.nickname
-      };
-
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-      // Chamando a API usando HttpClient
-      this.http.post(this.apiUrl, body, { headers }).subscribe({
+  onLogin() {
+    if (this.email && this.password) {
+      this.apiService.login(this.email, this.password).subscribe({
         next: (response) => {
-          console.log('Signup successful:', response);
-          alert('User created successfully!');
+          console.log('Login successful:', response);
+          localStorage.setItem('access_token', response.access);
+          localStorage.setItem('refresh_token', response.refresh);
+          this.router.navigate(['/main']);
         },
         error: (error) => {
-          console.error('Signup failed:', error);
-          alert('Signup failed. Please try again.');
-        },
+          console.error('Login failed:', error);
+          alert('Login failed. Please check your credentials and try again.');
+        }
       });
     } else {
       alert('Please fill in all fields.');
     }
+  }
+
+  goToSignup() {
+    this.router.navigate(['/signup']);
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

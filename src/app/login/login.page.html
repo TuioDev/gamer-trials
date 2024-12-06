@@ -6,7 +6,7 @@
 
 <ion-content>
   <div class="login-container">
-    <h2>Signup</h2>
+    <h2>Login</h2>
 
     <ion-item>
       <ion-label position="stacked">E-mail</ion-label>
@@ -15,14 +15,11 @@
 
     <ion-item>
       <ion-label position="stacked">Password</ion-label>
-      <ion-input [(ngModel)]="password" type="password" placeholder="Enter your password"></ion-input>
+      <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" placeholder="Enter your password"></ion-input>
+      <ion-icon slot="end" [name]="showPassword ? 'eye-off' : 'eye'" (click)="togglePasswordVisibility()"></ion-icon>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Nickname</ion-label>
-      <ion-input [(ngModel)]="nickname" type="text" placeholder="Choose a nickname"></ion-input>
-    </ion-item>
-
-    <ion-button expand="block" color="primary" (click)="onConfirm()">Confirm</ion-button>
+    <ion-button expand="block" color="secondary" (click)="onLogin()">Login</ion-button>
+    <ion-button expand="block" color="secondary" (click)="goToSignup()">Create Account</ion-button>
   </div>
 </ion-content>

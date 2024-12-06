@@ -21,3 +21,11 @@
   --ion-color-danger-shade: #e60000;
   --ion-color-danger-tint: #ff3333;
 }
+
+#title {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--ion-color-primary);
+  margin: 10px 0;
+}
