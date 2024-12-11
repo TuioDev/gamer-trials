@@ -1,20 +1,23 @@
 <ion-content>
   <ion-header>
     <ion-toolbar>
-      <ion-title id="title">{{ tournamentName }}</ion-title>
+      <ion-title id="title">
+        {{ activeTournament ? activeTournament.name : 'No Active Tournament' }}
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-game-list
-    [games]="games"
-    [layout]="isDesktop ? 'grid' : 'horizontal'">
-  </app-game-list>
+  <ng-container *ngIf="activeTournament; else noTournament">
+    <app-tournament-card [competition]="activeTournament"></app-tournament-card>
+  </ng-container>
 
-  <ion-header>
-    <ion-toolbar>
-      <ion-title id="title">Leaderboards</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ng-template #noTournament>
+    <div class="no-tournament-message">
+      <ion-text color="medium">
+        <p>No tournaments happening.</p>
+      </ion-text>
+    </div>
+  </ng-template>
 
   <app-leaderboard [game]="game" [leaderboard]="leaderboard"></app-leaderboard>
 </ion-content>

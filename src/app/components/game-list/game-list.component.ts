@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonButton } from '@ionic/angular/standalone';
+import { Game } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-game-list',
@@ -17,10 +18,11 @@ import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonButton } from
   ]
 })
 export class GameListComponent {
-  @Input() games: any[] = [];
+  @Input() games: Game[] = [];
   @Input() layout: 'grid' | 'horizontal' = 'horizontal';
 
   playGame(gameId: number) {
     console.log(`Playing game with ID: ${gameId}`);
+    // TODO: Implement game launch logic
   }
 }

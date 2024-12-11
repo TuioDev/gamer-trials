@@ -1,16 +1,20 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonToolbar, IonTitle } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonTitle, IonText } from '@ionic/angular/standalone';
 import { LeaderboardComponent } from 'src/app/components/leaderboard/leaderboard.component';
 import { GameListComponent } from 'src/app/components/game-list/game-list.component';
+import { CompetitionsListComponent } from 'src/app/components/competitions-list/competitions-list.component';
+import { ApiService } from 'src/app/services/api.service';
+import { TournamentCardComponent } from 'src/app/components/tournament-card/tournament-card.component';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonText,
     CommonModule,
     FormsModule,
     IonContent,
@@ -18,11 +22,13 @@ import { GameListComponent } from 'src/app/components/game-list/game-list.compon
     IonToolbar,
     IonTitle,
     LeaderboardComponent,
-    GameListComponent
+    GameListComponent,
+    CompetitionsListComponent,
+    TournamentCardComponent
   ]
 })
-export class DashboardPage {
-  isDesktop: boolean = window.innerWidth > 768;
+export class DashboardPage implements OnInit {
+  isDesktop: boolean;
   tournamentName: string = 'Championship 2024';
   games = [
     {
@@ -35,15 +41,42 @@ export class DashboardPage {
     // ... rest of your games array
   ];
 
-  @HostListener('window:resize')
-  onResize() {
-    this.isDesktop = window.innerWidth > 768;
+  activeTournament: any = null;
+
+  constructor(
+    private platform: Platform,
+    private apiService: ApiService
+  ) {
+    this.isDesktop = this.platform.is('desktop');
   }
+
+  ngOnInit() {
+    this.loadActiveTournament();
+  }
+
+  private loadActiveTournament() {
+    console.log("Is desktop: ", this.isDesktop);
+    this.apiService.getActiveCompetitions().subscribe({
+      next: (competitions) => {
+        this.activeTournament = competitions.find(comp => {
+          const now = new Date();
+          const startDate = new Date(comp.start_date);
+          const endDate = new Date(comp.end_date);
+          return now >= startDate && now <= endDate;
+        });
+      },
+      error: (error) => {
+        console.error('Error loading active tournament:', error);
+      }
+    });
+  }
+
   game = {
     image: 'assets/images/game1.jpg',
     title: 'Elden Ring',
     studio: 'FromSoftware'
   }
+
   leaderboard = [
     { position: 1, nickname: 'Player 1', score: 1000 },
     { position: 2, nickname: 'Player 2', score: 900 },

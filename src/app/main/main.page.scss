@@ -20,10 +20,16 @@ ion-tab-button {
   font-weight: bold;
   font-style: italic;
   transition: all 0.3s ease;
+
+  &:hover {
+    --color: white;
+    opacity: 0.8;
+  }
 }
 
 ion-tab-button.tab-selected {
-  --background: white;
+  --background: var(--ion-color-secondary-contrast);
+  --color: var(--ion-color-secondary);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 

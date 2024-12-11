@@ -7,25 +7,17 @@
     </div>
   </div>
 
-
-
   <ion-list class="leaderboard-table">
     <ion-item *ngFor="let player of leaderboard" lines="none">
-
       <div class="position" [ngClass]="getPositionClass(player.position)">
         <span>{{ player.position }}</span>
       </div>
-
-
       <div class="nickname">
         <span>{{ player.nickname }}</span>
       </div>
-
-
       <div class="score">
         <span>{{ player.score }}</span>
       </div>
     </ion-item>
   </ion-list>
-
 </div>

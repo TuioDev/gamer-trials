@@ -1,3 +1,28 @@
-<p>
-  tournament-card works!
-</p>
+<ion-card [class.active]="competition.status" [class.inactive]="!competition.status">
+  <div class="tournament-header">
+    <div class="tournament-logo">
+      <img [src]="competition.logo_url || 'assets/images/default-tournament.png'"
+           [alt]="competition.name"
+           class="tournament-image" />
+    </div>
+
+    <div class="tournament-info">
+      <ion-card-header>
+        <ion-card-title>{{ competition.name }}</ion-card-title>
+      </ion-card-header>
+
+      <div class="tournament-details">
+        <p><strong>Start Date:</strong> {{ competition.start_date | date:'medium' }}</p>
+        <p><strong>End Date:</strong> {{ competition.end_date | date:'medium' }}</p>
+        <p><strong>Status:</strong> {{ competition.status ? 'Active' : 'Inactive' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <ion-card-content>
+    <app-game-list
+      [games]="competition.games"
+      layout="grid">
+    </app-game-list>
+  </ion-card-content>
+</ion-card>

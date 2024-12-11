@@ -13,6 +13,25 @@ interface LoginRequest {
   password: string;
 }
 
+export interface Game {
+  id: number;
+  studio: string;
+  name: string;
+  logo_url: string;
+  game_url: string;
+  description?: string;
+}
+
+export interface Competition {
+  id: number;
+  name: string;
+  logo_url: string;
+  start_date: string;
+  end_date: string;
+  games: Game[];
+  status: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -48,13 +67,8 @@ export class ApiService {
     return this.http.post(url, body, { headers });
   }
 
-  getActiveCompetitions(): Observable<any[]> {
+  getActiveCompetitions(): Observable<Competition[]> {
     const url = `${this.baseUrl}/competitions/`;
-    return this.http.get<any[]>(url, { headers: this.getAuthHeaders() });
-  }
-
-  getCompetitionByName(name: string): Observable<any> {
-    const url = `${this.baseUrl}/competitions/${name}`;
-    return this.http.get<any>(url, { headers: this.getAuthHeaders() });
+    return this.http.get<Competition[]>(url, { headers: this.getAuthHeaders() });
   }
 }
