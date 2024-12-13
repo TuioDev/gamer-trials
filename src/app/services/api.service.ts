@@ -129,7 +129,10 @@ export class ApiService {
         return scores.map((score, index) => ({
           ...score,
           position: index + 1,
-          nickname: score.user.nickname
+          user: {
+            ...score.user,
+            nickname: score.user.nickname || score.user.email
+          }
         }));
       })
     );
