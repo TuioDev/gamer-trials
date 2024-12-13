@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonToolbar, IonTitle, IonText } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonTitle, IonText, IonButton } from '@ionic/angular/standalone';
 import { LeaderboardComponent } from 'src/app/components/leaderboard/leaderboard.component';
 import { GameListComponent } from 'src/app/components/game-list/game-list.component';
-import { CompetitionsListComponent } from 'src/app/components/competitions-list/competitions-list.component';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService, ScoreResponse, GameStudio, Competition } from 'src/app/services/api.service';
 import { TournamentCardComponent } from 'src/app/components/tournament-card/tournament-card.component';
 import { Platform } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
-  imports: [IonText,
+  imports: [IonButton, IonText,
     CommonModule,
     FormsModule,
     IonContent,
@@ -23,29 +23,24 @@ import { Platform } from '@ionic/angular';
     IonTitle,
     LeaderboardComponent,
     GameListComponent,
-    CompetitionsListComponent,
     TournamentCardComponent
   ]
 })
 export class DashboardPage implements OnInit {
   isDesktop: boolean;
-  tournamentName: string = 'Championship 2024';
-  games = [
-    {
-      id: 1,
-      name: 'Game One',
-      title: 'Game One',
-      studio: 'Studio A',
-      image: 'assets/images/game1.jpg'
-    },
-    // ... rest of your games array
-  ];
 
-  activeTournament: any = null;
+  activeTournament: Competition | null = null;
+  leaderboard: ScoreResponse[] = [];
+  game = {
+    image: '',
+    title: '',
+    studio: null as GameStudio | null
+  };
 
   constructor(
     private platform: Platform,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private authService: AuthService
   ) {
     this.isDesktop = this.platform.is('desktop');
   }
@@ -55,15 +50,18 @@ export class DashboardPage implements OnInit {
   }
 
   private loadActiveTournament() {
-    console.log("Is desktop: ", this.isDesktop);
     this.apiService.getActiveCompetitions().subscribe({
       next: (competitions) => {
+        const now = new Date();
         this.activeTournament = competitions.find(comp => {
-          const now = new Date();
           const startDate = new Date(comp.start_date);
           const endDate = new Date(comp.end_date);
-          return now >= startDate && now <= endDate;
-        });
+          return comp.is_active && now >= startDate && now <= endDate;
+        }) || null;
+
+        if (this.activeTournament) {
+          this.loadMostPopularGameLeaderboard();
+        }
       },
       error: (error) => {
         console.error('Error loading active tournament:', error);
@@ -71,23 +69,50 @@ export class DashboardPage implements OnInit {
     });
   }
 
-  game = {
-    image: 'assets/images/game1.jpg',
-    title: 'Elden Ring',
-    studio: 'FromSoftware'
+  private loadMostPopularGameLeaderboard() {
+    if (!this.activeTournament || !this.activeTournament.games.length) return;
+
+    const selectedGame = this.activeTournament.games[0];
+    console.log('Selected game:', selectedGame);
+
+    this.game = {
+      image: selectedGame.logo_url,
+      title: selectedGame.name,
+      studio: selectedGame.studio
+    };
+
+    this.apiService.getLeaderboard(this.activeTournament.id, selectedGame.id)
+      .subscribe({
+        next: (scores) => {
+          console.log('Processed leaderboard:', scores);
+          this.leaderboard = scores.slice(0, 4);
+        },
+        error: (error) => {
+          console.error('Error loading leaderboard:', error);
+        }
+      });
   }
 
-  leaderboard = [
-    { position: 1, nickname: 'Player 1', score: 1000 },
-    { position: 2, nickname: 'Player 2', score: 900 },
-    { position: 3, nickname: 'Player 3', score: 800 },
-    { position: 4, nickname: 'Player 4', score: 700 },
-    { position: 5, nickname: 'Player 5', score: 600 },
-    { position: 6, nickname: 'Player 6', score: 500 },
-    { position: 7, nickname: 'Player 7', score: 400 },
-    { position: 8, nickname: 'Player 8', score: 300 },
-    { position: 9, nickname: 'Player 9', score: 200 },
-    { position: 10, nickname: 'Player 10', score: 100 }
-  ]
-  // ... rest of your component code
+  registerRandomScore() {
+    if (!this.activeTournament || !this.activeTournament.games.length) return;
+
+    const selectedGame = this.activeTournament.games[0];
+    const randomScore = Math.floor(Math.random() * 1000) + 1;
+    const userId = this.authService.getUserId();
+
+    this.apiService.registerScore(
+      userId,
+      selectedGame.id,
+      this.activeTournament.id,
+      randomScore
+    ).subscribe({
+      next: (response) => {
+        console.log('Score registered:', response);
+        this.loadMostPopularGameLeaderboard();
+      },
+      error: (error) => {
+        console.error('Error registering score:', error);
+      }
+    });
+  }
 }

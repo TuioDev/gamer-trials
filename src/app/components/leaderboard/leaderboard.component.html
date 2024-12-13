@@ -3,21 +3,27 @@
     <img [src]="game.image" alt="Game Image" class="game-image" />
     <div class="game-info">
       <h2>{{ game.title }}</h2>
-      <p>{{ game.studio }}</p>
+      <p>{{ game.studio?.studio_name || '' }}</p>
     </div>
   </div>
 
-  <ion-list class="leaderboard-table">
+  <ion-list class="leaderboard-table" *ngIf="leaderboard.length > 0; else noScores">
     <ion-item *ngFor="let player of leaderboard" lines="none">
       <div class="position" [ngClass]="getPositionClass(player.position)">
-        <span>{{ player.position }}</span>
+        <span>{{ player.position || '-' }}</span>
       </div>
       <div class="nickname">
-        <span>{{ player.nickname }}</span>
+        <span>{{ player.user.nickname }}</span>
       </div>
       <div class="score">
         <span>{{ player.score }}</span>
       </div>
     </ion-item>
   </ion-list>
+
+  <ng-template #noScores>
+    <div class="no-scores">
+      <p>No scores submitted yet.</p>
+    </div>
+  </ng-template>
 </div>

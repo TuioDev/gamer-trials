@@ -1,14 +1,18 @@
 <div class="games-container">
-  <div [ngClass]="layout === 'grid' ? 'grid-layout' : 'horizontal-layout'">
+  <ng-container *ngTemplateOutlet="gameList; context: { $implicit: currentLayout$ | async }">
+  </ng-container>
+</div>
+
+<ng-template #gameList let-layout>
+  <div [class]="layout + '-layout'">
     <ion-card *ngFor="let game of games" class="game-card">
       <img [src]="game.logo_url" alt="{{ game.name }}" class="game-image" />
       <ion-card-header>
         <ion-card-title>{{ game.name }}</ion-card-title>
-        <ion-card-subtitle>{{ game.studio }}</ion-card-subtitle>
       </ion-card-header>
       <ion-button expand="block" (click)="playGame(game.id)">
         Play
       </ion-button>
     </ion-card>
   </div>
-</div>
+</ng-template>

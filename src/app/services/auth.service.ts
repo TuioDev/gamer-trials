@@ -27,4 +27,17 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
   }
+
+  getUserId(): number {
+    const token = this.getAccessToken();
+    if (!token) return 0;
+
+    try {
+      const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+      return tokenPayload.user_id;
+    } catch (e) {
+      console.error('Error decoding token:', e);
+      return 0;
+    }
+  }
 }

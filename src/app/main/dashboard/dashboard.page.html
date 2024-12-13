@@ -1,12 +1,4 @@
 <ion-content>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title id="title">
-        {{ activeTournament ? activeTournament.name : 'No Active Tournament' }}
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ng-container *ngIf="activeTournament; else noTournament">
     <app-tournament-card [competition]="activeTournament"></app-tournament-card>
   </ng-container>
@@ -20,4 +12,13 @@
   </ng-template>
 
   <app-leaderboard [game]="game" [leaderboard]="leaderboard"></app-leaderboard>
+
+  <ion-button
+    expand="block"
+    color="primary"
+    (click)="registerRandomScore()"
+    class="register-score-btn"
+    *ngIf="activeTournament">
+    Register Random Score
+  </ion-button>
 </ion-content>

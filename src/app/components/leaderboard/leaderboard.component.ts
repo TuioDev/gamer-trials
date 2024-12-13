@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { ScoreResponse, GameStudio } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-leaderboard',
@@ -10,16 +11,21 @@ import { IonicModule } from '@ionic/angular';
   styleUrls: ['./leaderboard.component.scss'],
 })
 export class LeaderboardComponent {
-  @Input() game: { image: string; title: string; studio: string } = {
+  @Input() game: {
+    image: string;
+    title: string;
+    studio: GameStudio | null;
+  } = {
     image: '',
     title: '',
-    studio: '',
+    studio: null
   };
 
-  @Input() leaderboard: { position: number; nickname: string; score: number }[] =
-    [];
+  @Input() leaderboard: ScoreResponse[] = [];
 
-  getPositionClass(position: number): string {
+  getPositionClass(position: number | undefined): string {
+    if (!position) return 'blue';
+
     switch (position) {
       case 1:
         return 'gold';
