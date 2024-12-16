@@ -2,7 +2,10 @@
   <div *ngFor="let gameLeaderboard of gameLeaderboards">
     <app-leaderboard
       [game]="gameLeaderboard.game"
-      [leaderboard]="gameLeaderboard.leaderboard">
+      [leaderboard]="gameLeaderboard.leaderboard"
+      [competitionId]="activeTournament?.id"
+      [gameId]="gameLeaderboard.gameId"
+      (scoreRegistered)="refreshLeaderboard(gameLeaderboard.gameId)">
     </app-leaderboard>
   </div>
 </ion-content>

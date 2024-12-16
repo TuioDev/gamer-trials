@@ -70,10 +70,11 @@ export class DashboardPage implements OnInit {
   }
 
   private loadMostPopularGameLeaderboard() {
-    if (!this.activeTournament || !this.activeTournament.games.length) return;
+    if (!this.activeTournament) return;
+    if (!this.activeTournament.games?.length) return;
 
     const selectedGame = this.activeTournament.games[0];
-    console.log('Selected game:', selectedGame);
+    if (!selectedGame) return;
 
     this.game = {
       image: selectedGame.logo_url,
@@ -84,7 +85,6 @@ export class DashboardPage implements OnInit {
     this.apiService.getLeaderboard(this.activeTournament.id, selectedGame.id)
       .subscribe({
         next: (scores) => {
-          console.log('Processed leaderboard:', scores);
           this.leaderboard = scores.slice(0, 4);
         },
         error: (error) => {
@@ -114,5 +114,9 @@ export class DashboardPage implements OnInit {
         console.error('Error registering score:', error);
       }
     });
+  }
+
+  refreshLeaderboard() {
+    this.loadMostPopularGameLeaderboard();
   }
 }

@@ -11,14 +11,11 @@
     </div>
   </ng-template>
 
-  <app-leaderboard [game]="game" [leaderboard]="leaderboard"></app-leaderboard>
-
-  <ion-button
-    expand="block"
-    color="primary"
-    (click)="registerRandomScore()"
-    class="register-score-btn"
-    *ngIf="activeTournament">
-    Register Random Score
-  </ion-button>
+  <app-leaderboard
+    [game]="game"
+    [leaderboard]="leaderboard"
+    [competitionId]="activeTournament?.id"
+    [gameId]="activeTournament?.games?.[0]?.id"
+    (scoreRegistered)="refreshLeaderboard()">
+  </app-leaderboard>
 </ion-content>

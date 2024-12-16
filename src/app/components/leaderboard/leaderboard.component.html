@@ -26,4 +26,13 @@
       <p>No scores submitted yet.</p>
     </div>
   </ng-template>
+
+  <ion-button
+    *ngIf="competitionId && gameId"
+    expand="block"
+    color="tertiary"
+    (click)="registerRandomScore()"
+    class="register-score-btn">
+    Register Random Score
+  </ion-button>
 </div>

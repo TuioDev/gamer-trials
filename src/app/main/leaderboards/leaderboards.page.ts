@@ -10,6 +10,7 @@ interface GameLeaderboard {
     title: string;
     studio: any;
   };
+  gameId: number;
   leaderboard: ScoreResponse[];
 }
 
@@ -58,6 +59,7 @@ export class LeaderboardsPage implements OnInit {
           title: game.name,
           studio: game.studio
         },
+        gameId: game.id,
         leaderboard: []
       };
 
@@ -75,5 +77,21 @@ export class LeaderboardsPage implements OnInit {
           }
         });
     });
+  }
+
+  refreshLeaderboard(gameId: number) {
+    if (!this.activeTournament) return;
+
+    this.apiService.getLeaderboard(this.activeTournament.id, gameId)
+      .subscribe({
+        next: (scores) => {
+          const index = this.gameLeaderboards.findIndex(
+            gb => gb.gameId === gameId
+          );
+          if (index !== -1) {
+            this.gameLeaderboards[index].leaderboard = scores.slice(0, 10);
+          }
+        }
+      });
   }
 }
