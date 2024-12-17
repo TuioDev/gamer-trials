@@ -1,10 +1,4 @@
 <ion-content>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title id="title">Tournaments</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ng-container *ngIf="tournaments.length > 0; else noTournaments">
     <app-tournament-card
       *ngFor="let tournament of tournaments"

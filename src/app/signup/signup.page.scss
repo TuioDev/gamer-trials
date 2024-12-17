@@ -54,3 +54,20 @@ ion-title {
     margin-bottom: 24px;
   }
 }
+
+ion-toolbar {
+  display: flex;
+  justify-content: center;
+
+  ion-title {
+    flex: 0 1 auto;
+    text-align: center;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  ion-buttons {
+    position: absolute;
+    left: 0;
+  }
+}

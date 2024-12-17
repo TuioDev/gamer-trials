@@ -33,8 +33,7 @@ export class LoginPage {
       this.apiService.login(this.email, this.password).subscribe({
         next: (response) => {
           console.log('Login successful:', response);
-          localStorage.setItem('access_token', response.access);
-          localStorage.setItem('refresh_token', response.refresh);
+          this.authService.setTokens(response.access, response.refresh);
           this.router.navigate(['/main']);
         },
         error: (error) => {

@@ -9,13 +9,23 @@
     <h2>Login</h2>
 
     <ion-item>
-      <ion-label position="stacked">E-mail</ion-label>
-      <ion-input [(ngModel)]="email" type="email" placeholder="Enter your email"></ion-input>
+      <ion-input
+        label="E-mail"
+        labelPlacement="stacked"
+        [(ngModel)]="email"
+        type="email"
+        placeholder="Enter your email">
+      </ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Password</ion-label>
-      <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" placeholder="Enter your password"></ion-input>
+      <ion-input
+        label="Password"
+        labelPlacement="stacked"
+        [(ngModel)]="password"
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Enter your password">
+      </ion-input>
       <ion-icon slot="end" [name]="showPassword ? 'eye-off' : 'eye'" (click)="togglePasswordVisibility()"></ion-icon>
     </ion-item>
 

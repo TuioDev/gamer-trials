@@ -40,4 +40,9 @@ export class AuthService {
       return 0;
     }
   }
+
+  setTokens(access: string, refresh: string): void {
+    localStorage.setItem('access_token', access);
+    localStorage.setItem('refresh_token', refresh);
+  }
 }

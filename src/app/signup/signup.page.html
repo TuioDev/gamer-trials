@@ -1,5 +1,10 @@
 <ion-header>
   <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title size="large" class="ion-text-center">GamerTrials</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -11,19 +16,34 @@
     <!-- Show signup form when not successful -->
     <div *ngIf="!signupSuccess">
       <ion-item>
-        <ion-label position="stacked">E-mail</ion-label>
-        <ion-input [(ngModel)]="email" type="email" placeholder="Enter your email"></ion-input>
+        <ion-input
+          label="E-mail"
+          labelPlacement="stacked"
+          [(ngModel)]="email"
+          type="email"
+          placeholder="Enter your email">
+        </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Password</ion-label>
-        <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" placeholder="Enter your password"></ion-input>
+        <ion-input
+          label="Password"
+          labelPlacement="stacked"
+          [(ngModel)]="password"
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Enter your password">
+        </ion-input>
         <ion-icon slot="end" [name]="showPassword ? 'eye-off' : 'eye'" (click)="togglePasswordVisibility()"></ion-icon>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Nickname</ion-label>
-        <ion-input [(ngModel)]="nickname" type="text" placeholder="Choose a nickname"></ion-input>
+        <ion-input
+          label="Nickname"
+          labelPlacement="stacked"
+          [(ngModel)]="nickname"
+          type="text"
+          placeholder="Choose a nickname">
+        </ion-input>
       </ion-item>
 
       <ion-button expand="block" color="secondary" (click)="onConfirm()">Sign Up</ion-button>
@@ -34,7 +54,7 @@
       <ion-icon name="checkmark-circle" color="success" class="success-icon"></ion-icon>
       <h2>Account Created Successfully!</h2>
       <p>You can now login with your credentials.</p>
-      <ion-button expand="block" color="primary" (click)="goToLogin()">Go to Login</ion-button>
+      <ion-button expand="block" color="primary" (click)="goToDashboard()">Go to Dashboard</ion-button>
     </div>
   </div>
 </ion-content>
